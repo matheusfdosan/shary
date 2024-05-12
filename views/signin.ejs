@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Rede Social - Sign In</title>
+  </head>
+  <body>
+    <%- include("./configs/header.ejs")%>
+
+    <main
+      class="w-10/12 m-auto my-14 flex border-2 border-indigo-300 rounded-md py-5 px-2 justify-around items-center"
+    >
+      <div>
+        <h2 class="text-2xl font-bold mb-5">Logo</h2>
+        <p>Faça login para ver fotos e vídeos dos seus amigos.</p>
+       <img src="https://cdn-icons-png.flaticon.com/256/5463/5463661.png" 
+       alt="illustration"
+       class="w-64 mx-auto">
+      </div>
+
+      <form action="/login" method="post" class="flex flex-col gap-5 w-1/2">
+    
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="email-input">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email-input"
+            placeholder="Digite seu email"
+            class="border border-gray-800 rounded w-full p-2"
+            required
+          />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="password-input">Senha</label>
+          <input
+            type="text"
+            name="password"
+            id="password-input"
+            placeholder="Digite seu nome"
+            class="border border-gray-800 rounded w-full p-2"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="border-2 border-indigo-300 bg-indigo-300 p-2 rounded text-white hover:bg-white hover:text-indigo-300 font-bold transition-colors"
+        >
+          Login
+        </button>
+      </form>
+    </main>
+
+    <%- include("./configs/footer.ejs")%>
+  </body>
+</html>

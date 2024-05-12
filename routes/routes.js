@@ -1,6 +1,16 @@
 const express = require("express")
 const User = require("../models/users.js")
+const session = require("express-session")
+const mongoose = require("mongoose")
 const router = express.Router()
+
+router.use(
+  session({
+    secret: "40028922",
+    resave: false,
+    saveUninitialized: true,
+  })
+)
 
 router.get("/", (req, res) => {
   res.render("index")
@@ -13,7 +23,7 @@ router.get("/signup", (req, res) => {
 
 router.post("/add", (req, res) => {
   const user = new User({
-    name: req.body.name,
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password,
   })
@@ -30,6 +40,15 @@ router.post("/add", (req, res) => {
     .catch((err) => {
       res.json({ message: err.message, type: "DANGER" })
     })
+})
+
+// Login do Usuário
+router.get("/signin", (req, res) => {
+  res.render("signin")
+})
+
+router.post("/login", (req, res) => {
+  res.redirect("/")
 })
 
 module.exports = router
