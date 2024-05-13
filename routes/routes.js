@@ -48,7 +48,52 @@ router.get("/signin", (req, res) => {
 })
 
 router.post("/login", (req, res) => {
-  res.redirect("/")
+  const { email, password } = req.body
+  User.findOne({ email })
+    .then((user) => {
+      if (!user) {
+        req.session.message = {
+          type: "DANGER",
+          message: "Invalid credentials. Please check your email and password.",
+        }
+        res.redirect("/signin")
+      } else {
+        if (password == user.password) {
+          req.session.user = user
+          res.redirect("/homepage/:id")
+        } else {
+          req.session.message = {
+            type: "DANGER",
+            message:
+              "Invalid credentials. Please check your email and password.",
+          }
+          res.redirect("/signin")
+        }
+      }
+    })
+    .catch((err) => {
+      req.session.message = {
+        type: "DANGER",
+        message:
+          "An error occurred while logging in. Please try again later." + err,
+      }
+      res.redirect("/signin")
+    })
+})
+
+router.get("/homepage/:id", (req, res) => {
+  let id = req.params.id
+  User.findById(id)
+    .then((user) => {
+      if (user == null) {
+        res.redirect("/signin", { message: "Try again" })
+      } else {
+        res.render("homepage", { user: user })
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 })
 
 module.exports = router
