@@ -3,6 +3,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const session = require("express-session")
+const path = require("path")
 
 const app = express()
 const PORT = 3000
@@ -16,22 +17,26 @@ app.set("views", "./views")
 app.use("", require("./routes/routes"))
 
 // Database connection
-const DB_CONNECTION = process.env.DB_URL
-// "mongodb+srv://matheusfaustinoe20:eOVcRYfvX5O0sqOj@crud-application-cluste.3zbzuhw.mongodb.net/?authMechanism=DEFAULT"
+const MONGO_URI = process.env.MONGO_URI
 
-mongoose.connect(DB_CONNECTION)
+if (!MONGO_URI) {
+  throw new Error(
+    "MongoDB URI is not defined. Please set the MONGO_URI environment variable."
+  )
+}
 
-const db = mongoose.connection
-
-db.on("error", (error) => {
-  console.log(error)
-})
-db.once("open", () => {
-  console.log("Connected to mongo database")
-})
+mongoose
+  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Connected to mongo database")
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 
 // Middlewares
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static(path.join(__dirname, "public")))
 app.use(express.json())
 
 app.use(
