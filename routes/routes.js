@@ -47,9 +47,17 @@ router.get("/signin", (req, res) => {
   res.render("signin")
 })
 
+// User.find()
+//     .exec()
+//     .then((users) => {
+//       console.log(users)
+//       res.render("index", { title: "HomePage", users: users })
+//     })
+
 router.post("/login", (req, res) => {
+  
   const { email, password } = req.body
-  User.findOne({ email })
+  User.findOne({ email, password })
     .then((user) => {
       if (!user) {
         req.session.message = {
@@ -60,7 +68,7 @@ router.post("/login", (req, res) => {
       } else {
         if (password == user.password) {
           req.session.user = user
-          res.redirect("/homepage/:id")
+          res.redirect("/homepage/" + user._id)
         } else {
           req.session.message = {
             type: "DANGER",
