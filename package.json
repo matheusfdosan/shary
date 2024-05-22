@@ -1,7 +1,7 @@
 {
-  "name": "parte-de-login-e-cadastro",
+  "name": "shary",
   "version": "1.0.0",
-  "description": "",
+  "description": "social media",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -9,8 +9,7 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "mongoose": "^8.3.4",
-    "uuid": "^9.0.1"
+    "mongoose": "^8.3.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
