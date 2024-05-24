@@ -13,12 +13,19 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   followers: {
-    type: String,
-    required: false,
+    type: Number,
+    required: true,
+    default: 0,
   },
   following: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  bio: {
     type: String,
     required: false,
+    default: "",
   },
   created: {
     type: Date,

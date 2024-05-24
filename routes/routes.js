@@ -21,6 +21,7 @@ router.get("/signup", (req, res) => {
   res.render("signup")
 })
 
+// Adicionando usuário no banco de dados
 router.post("/add", (req, res) => {
   const user = new User({
     username: req.body.username,
@@ -35,10 +36,22 @@ router.post("/add", (req, res) => {
         message: "Usuário Adicionado com Sucesso!",
       }
       console.log("Usuário Salvo: " + user)
-      res.redirect("/")
+      res.redirect("/edit/" + user._id)
     })
     .catch((err) => {
       res.json({ message: err.message, type: "DANGER" })
+    })
+})
+
+// Mais configurções de usuário
+router.get("/edit/:id", (req, res) => {
+  let id = req.params.id
+  User.findById(id)
+    .then((user) => {
+      res.render("edit_account")
+    })
+    .catch((err) => {
+      console.log("Error:" + err)
     })
 })
 
@@ -47,15 +60,7 @@ router.get("/signin", (req, res) => {
   res.render("signin")
 })
 
-// User.find()
-//     .exec()
-//     .then((users) => {
-//       console.log(users)
-//       res.render("index", { title: "HomePage", users: users })
-//     })
-
 router.post("/login", (req, res) => {
-  
   const { email, password } = req.body
   User.findOne({ email, password })
     .then((user) => {
@@ -68,7 +73,7 @@ router.post("/login", (req, res) => {
       } else {
         if (password == user.password) {
           req.session.user = user
-          res.redirect("/homepage/" + user._id)
+          res.redirect("/edit" + user._id, { user: user })
         } else {
           req.session.message = {
             type: "DANGER",
@@ -89,6 +94,7 @@ router.post("/login", (req, res) => {
     })
 })
 
+// Após o login, aparece a homepage do usuário
 router.get("/homepage/:id", (req, res) => {
   let id = req.params.id
   User.findById(id)
