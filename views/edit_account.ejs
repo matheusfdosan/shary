@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <%- include("./configs/head.ejs") %>
+  <title>Shary - Edit Account</title>
+</head>
+<body>
+  <main class="w-10/12 m-auto my-4 min-h-full">
+    <form action="/edit" method="post" enctype="multipart/form-data">
+      <!-- enctype="multipart/form-data" - para transferir imagens -->
+      
+      <label for="profile-picture-input" class="flex flex-col">
+        Coloque uma foto de perfil:
+        <input type="file" name="prof_pic" id="profile-picture-input">
+      </label>
+
+      <label for="bio-input" class="flex gap-4">
+        <p>Bio: <span class="text-red-500">Opcional</span></p>
+        <textarea name="bio" id="bio-input" cols="30" rows="10" placeholder="Digite uma bio" class="border"></textarea>
+      </label>
+      
+      <button type="submit" class="border p-2">Editar</button>
+    </form>
+  </main>
+  <%- include("./layouts/footer.ejs") %>
+</body>
+</html>
