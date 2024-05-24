@@ -5,7 +5,7 @@
     <title>Shary - Homepage</title>
   </head>
   <body class="bg-indigo-50">
-    <%- include("./layouts/header_homepage.ejs")%>
+    <%- include("./layouts/header_homepage.ejs", { username: user.username, followers: user.followers, following: user.following })%>
 
     <main class="w-10/12 m-auto my-4 min-h-full">
       <div
